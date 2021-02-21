@@ -6,8 +6,8 @@ import models
 import schemas
 
 def get_asn_by_ip(db: Session, ip: str):
-    asn = db.query(models.Asn).join(models.AsnNetwork).\
-        filter(models.AsnNetwork.network.op(">>")(ip)).\
+    asn = db.query(models.Asn).join(models.LastestSubnetAsns).\
+        filter(models.LastestSubnetAsns.subnet.op(">>")(ip)).\
         first()
     return asn
 
@@ -22,7 +22,7 @@ def check_mac_mask_exists(db, schema_test:schemas.BaseModel):
 def create_test_base(db: Session, test_base: schemas.TestBase, ip):
     asn = get_asn_by_ip(db, ip)
     asn_id = asn.id if asn else None
-    db_test = models.Test(**test_base.dict(), public_ip=ip,asn_id= asn_id)
+    db_test = models.Test(**test_base.dict(), public_ip=ip, asn_id= asn_id)
     add_to_database(db, db_test)
     return db_test
 

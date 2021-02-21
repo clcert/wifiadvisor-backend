@@ -30,15 +30,14 @@ class Asn(Base):
     __tablename__ = "asns"
     
     id = Column(Integer, primary_key = True, autoincrement = False )
-    asn_organization = Column(String)
+    name = Column(String)
     
-class AsnNetwork(Base):
+class LastestSubnetAsns(Base):
 
-    __tablename__  = "asn_networks"
+    __tablename__  = "lastest_subnet_asns"
 
-    id = Column(Integer, primary_key=True, index=True)
-    asn = Column(ForeignKey('asns.id'))
-    network = Column(CIDR)
+    asn_id = Column(ForeignKey('asns.id'), primary_key = True)
+    subnet = Column(CIDR, primary_key = True)
 
 class MacManuf(Base):
 
