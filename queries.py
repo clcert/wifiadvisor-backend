@@ -6,8 +6,8 @@ import models
 import schemas
 
 def get_asn_by_ip(db: Session, ip: str):
-    asn = db.query(models.Asn).join(models.LastestSubnetAsns).\
-        filter(models.LastestSubnetAsns.subnet.op(">>")(ip)).\
+    asn = db.query(models.Asn).join(models.LatestSubnetAsns).\
+        filter(models.LatestSubnetAsns.subnet.op(">>")(ip)).\
         first()
     return asn
 

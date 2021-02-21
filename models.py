@@ -32,9 +32,9 @@ class Asn(Base):
     id = Column(Integer, primary_key = True, autoincrement = False )
     name = Column(String)
     
-class LastestSubnetAsns(Base):
+class LatestSubnetAsns(Base):
 
-    __tablename__  = "lastest_subnet_asns"
+    __tablename__  = "latest_subnet_asns"
 
     asn_id = Column(ForeignKey('asns.id'), primary_key = True)
     subnet = Column(CIDR, primary_key = True)
