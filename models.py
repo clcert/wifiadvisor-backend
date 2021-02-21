@@ -36,7 +36,7 @@ class LatestSubnetAsns(Base):
 
     __tablename__  = "latest_subnet_asns"
 
-    asn_id = Column(ForeignKey('asns.id'), primary_key = True)
+    asn_id = Column(Integer, primary_key = True)
     subnet = Column(CIDR, primary_key = True)
 
 class MacManuf(Base):
@@ -54,7 +54,7 @@ class Test(Base):
     id = Column(Integer, primary_key=True, index=True)
     public_ip = Column(INET)
     timestamp = Column(DateTime(timezone=True), server_default=func.now())
-    asn_id = Column(ForeignKey('asns.id')) 
+    asn_id = Column(Integer) 
     device_android = Column(String)
     mac = Column(MACADDR)
     mask = Column(Integer)
