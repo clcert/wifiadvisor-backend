@@ -31,7 +31,7 @@ def adapt_pydantic_ip_address(ip):
 models.Base.metadata.create_all(bind=database.engine)
 app = FastAPI()
 origins = [
-    "http://0.0.0.0:8000",
+    "0.0.0.0",
 ]
 
 app.add_middleware(
