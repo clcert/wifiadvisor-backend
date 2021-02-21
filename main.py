@@ -52,7 +52,6 @@ responses = {
 def get_asn(request: Request, db: Session=Depends(get_db)):
     try:
         client_host = request.client.host
-        client_host ="1.1.1.1"
         asn = queries.get_asn_by_ip(db, client_host)
         return {
                 "client_host": client_host,
