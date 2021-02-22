@@ -7,7 +7,11 @@ from sqlalchemy.schema import ForeignKeyConstraint
 import enum
 
 from database import Base
-
+class TestsName(str, enum.Enum):
+    basic_tests = "basic_tests",
+    devices_tests = "devices_tests",
+    ndt_tests_ooni = "ndt_tests_ooni",
+    web_tests_ooni = "web_tests_ooni",
 class DnsConsistencyEnum(enum.Enum):
     consistent = "consistent"
     reverse_match = "reverse_match"
