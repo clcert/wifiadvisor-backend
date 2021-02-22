@@ -1,4 +1,9 @@
 from uvicorn.workers import UvicornWorker
 
 class WifiAdvisorUvicornWorker(UvicornWorker):
-    CONFIG_KWARGS = {"proxy_headers": True, "loop": "uvloop", "http": "httptools"}
+    CONFIG_KWARGS = {
+        "proxy_headers": True,
+        "loop": "uvloop",
+        "http": "httptools",
+        "forwarded_allow_ips": "*",
+    }

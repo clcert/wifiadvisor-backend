@@ -47,10 +47,6 @@ register_adapter(IPv6Address, adapt_pydantic_ip_address)
 responses = {
     404: {"description": "Error: Not Found"},
 }
-@app.get("/debug")
-def get_debug(request: Request):
-    a= request.headers
-    return a
 
 @app.get("/asn", responses ={**responses})
 def get_asn(request: Request, db: Session=Depends(get_db)):
