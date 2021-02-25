@@ -153,7 +153,7 @@ class WebTestOoni(Base):
     dns_experiment_failure = Column(String)
     control_failure = Column(String)
     http_experiment_failure = Column(String)
-    dns_consistency = Column(Enum(DnsConsistencyEnum), nullable=False)
+    dns_consistency = Column(Enum(DnsConsistencyEnum))
     body_length_match = Column(Boolean)
     headers_match = Column(Boolean)
     status_code_match = Column(Boolean)
@@ -166,8 +166,8 @@ class TcpConnectWebTestOoni(Base):
     __tablename__ = 'tcp_connect_web_tests_ooni'
 
     id = Column(Integer, primary_key=True, index=True)
-    ip = Column(INET, nullable=False)
-    port = Column(Integer, nullable=False)
+    ip = Column(INET)
+    port = Column(Integer)
     status_blocked = Column(Boolean)
     status_failure_string = Column(String)
     status_success = Column(Boolean, nullable=False)

@@ -134,7 +134,7 @@ class WebTestOoni(BaseModel):
     dns_experiment_failure: Optional[str]
     control_failure: Optional[str]
     http_experiment_failure: Optional[str]
-    dns_consistency: models.DnsConsistencyEnum
+    dns_consistency: Optional[models.DnsConsistencyEnum]
     body_length_match: Optional[bool]
     headers_match: Optional[bool]
     status_code_match: Optional[bool]
@@ -145,8 +145,8 @@ class WebTestOoni(BaseModel):
         orm_mode = True
 
 class TcpConnectWebTestOoni(BaseModel):
-    ip: IPvAnyAddress
-    port: PositiveInt
+    ip: Optional[IPvAnyAddress]
+    port: Optional[PositiveInt]
     status_blocked: Optional[bool]
     status_failure_string: Optional[str]
     status_success: bool
