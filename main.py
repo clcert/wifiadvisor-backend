@@ -136,7 +136,7 @@ def add_ndt_test(request: Request, test: schemas.NdtTestOoni, test_base: schemas
 
 
 @app.post("/tests/ooni/web", responses={**responses}, status_code=status.HTTP_201_CREATED)
-def add_web_test_ooni(request: Request, web_test_ooni: schemas.WebTestOoni, tcp_connect_web_tests_ooni: List[schemas.TcpConnectWebTestOoni], test_base: schemas.TestBase = schemas.TestBase(), db: Session = Depends(get_db)):
+def add_web_test_ooni(request: Request, web_test_ooni: schemas.WebTestOoni, tcp_connect_web_tests_ooni: List[schemas.TcpConnectWebTestOoni] = [], test_base: schemas.TestBase = schemas.TestBase(), db: Session = Depends(get_db)):
     try:
         ip = request.client.host
         db_test_base = queries.create_test_base(db, test_base, ip)
@@ -159,7 +159,7 @@ def get_tests(request: Request, type_test: models.TestsName = None, db: Session 
             "protocols_test": queries.get_tests_with_list(db, ip, models.ProtocolTest),
             "devices_test": queries.get_devices_tests(db, ip),
             "dns_tests": queries.get_tests(db, ip, models.DnsTest),
-            "ndt_tests_ooni": queries.get_tests(db, ip, models.NdtTestOoni),
+            "ndt_tests_ooni": queries.get_ndt_test(db, ip, models.NdtTestOoni),
             "web_tests_ooni": queries.get_tests(db, ip, models.WebTestOoni)
         }
     elif (type_test == models.TestsName.basic_tests):
@@ -173,7 +173,7 @@ def get_tests(request: Request, type_test: models.TestsName = None, db: Session 
         }
     elif (type_test == models.TestsName.ndt_tests_ooni):
         return {
-            "ndt_tests_ooni": queries.get_tests(db, ip, models.NdtTestOoni)
+            "ndt_tests_ooni": queries.get_ndt_test(db, ip, models.NdtTestOoni)
         }
     elif (type_test == models.TestsName.web_tests_ooni):
         return {

@@ -1,5 +1,6 @@
 """
-the regex code for the mac address was obtained from stackoverflow (https://stackoverflow.com/questions/4260467/what-is-a-regular-expression-for-a-mac-address)
+ * the regex code for the mac address was obtained from stackoverflow (https://stackoverflow.com/questions/4260467/what-is-a-regular-expression-for-a-mac-address)
+ * the regex code for the private ip address was obtained from stackoverflow (https://stackoverflow.com/questions/2814002/private-ip-address-identifier-in-regular-expression)
 """
 from pydantic import BaseModel, PositiveInt, IPvAnyAddress, constr, conint, confloat, root_validator
 from typing import Optional, List
@@ -7,16 +8,15 @@ from datetime import datetime
 
 import models
 class MacManufOut(BaseModel):
-    mac: constr(regex='^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})')
+    mac: constr(regex = r'^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})')
     mask: PositiveInt
     manuf: Optional[str]
-    comment: Optional[str] 
     class Config:
         orm_mode = True
 
 class TestBase(BaseModel):
     device_android: Optional[str]
-    mac: Optional[constr(regex='^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})')]
+    mac: Optional[constr(regex = r'^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})')]
     mask: Optional[PositiveInt]
     place: Optional[str]
     username: Optional[str]
@@ -39,9 +39,19 @@ class ProtocolTest(BaseModel):
         orm_mode = True
 
 class DevicesTest(BaseModel):
-    mac: constr(regex='^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})')
-    mask: PositiveInt
+    mac: constr(regex = r'^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})')
+    mask: PositiveInt = 24
     router: bool=False
+    private_ip: constr(regex = r'(10|127|169\.254|172\.1[6-9]|172\.2[0-9]|172\.3[0-1]|192\.168)\.[0-9]{1,3}\.[0-9]{1,3}')
+    class Config:
+        orm_mode = True
+
+class DevicesOut(BaseModel):
+    mac: constr(regex = r'^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})')
+    mask: PositiveInt = 24
+    router: bool=False
+    private_ip: constr(regex = r'(10|127|169\.254|172\.1[6-9]|172\.2[0-9]|172\.3[0-1]|192\.168)\.[0-9]{1,3}\.[0-9]{1,3}')
+    manuf: Optional[str]
     class Config:
         orm_mode = True
 
